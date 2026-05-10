@@ -9,38 +9,310 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SignupRouteImport } from './routes/signup'
+import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as ForgotRouteImport } from './routes/forgot'
+import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as TripsIndexRouteImport } from './routes/trips.index'
+import { Route as TripsNewRouteImport } from './routes/trips.new'
+import { Route as TripsTripIdRouteImport } from './routes/trips.$tripId'
+import { Route as ShareSlugRouteImport } from './routes/share.$slug'
+import { Route as ExploreCitiesRouteImport } from './routes/explore.cities'
+import { Route as ExploreActivitiesRouteImport } from './routes/explore.activities'
+import { Route as TripsTripIdIndexRouteImport } from './routes/trips.$tripId.index'
+import { Route as TripsTripIdShareRouteImport } from './routes/trips.$tripId.share'
+import { Route as TripsTripIdPackingRouteImport } from './routes/trips.$tripId.packing'
+import { Route as TripsTripIdNotesRouteImport } from './routes/trips.$tripId.notes'
+import { Route as TripsTripIdBuildRouteImport } from './routes/trips.$tripId.build'
+import { Route as TripsTripIdBudgetRouteImport } from './routes/trips.$tripId.budget'
 
+const SignupRoute = SignupRouteImport.update({
+  id: '/signup',
+  path: '/signup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ForgotRoute = ForgotRouteImport.update({
+  id: '/forgot',
+  path: '/forgot',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TripsIndexRoute = TripsIndexRouteImport.update({
+  id: '/trips/',
+  path: '/trips/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TripsNewRoute = TripsNewRouteImport.update({
+  id: '/trips/new',
+  path: '/trips/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TripsTripIdRoute = TripsTripIdRouteImport.update({
+  id: '/trips/$tripId',
+  path: '/trips/$tripId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ShareSlugRoute = ShareSlugRouteImport.update({
+  id: '/share/$slug',
+  path: '/share/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExploreCitiesRoute = ExploreCitiesRouteImport.update({
+  id: '/explore/cities',
+  path: '/explore/cities',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExploreActivitiesRoute = ExploreActivitiesRouteImport.update({
+  id: '/explore/activities',
+  path: '/explore/activities',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TripsTripIdIndexRoute = TripsTripIdIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => TripsTripIdRoute,
+} as any)
+const TripsTripIdShareRoute = TripsTripIdShareRouteImport.update({
+  id: '/share',
+  path: '/share',
+  getParentRoute: () => TripsTripIdRoute,
+} as any)
+const TripsTripIdPackingRoute = TripsTripIdPackingRouteImport.update({
+  id: '/packing',
+  path: '/packing',
+  getParentRoute: () => TripsTripIdRoute,
+} as any)
+const TripsTripIdNotesRoute = TripsTripIdNotesRouteImport.update({
+  id: '/notes',
+  path: '/notes',
+  getParentRoute: () => TripsTripIdRoute,
+} as any)
+const TripsTripIdBuildRoute = TripsTripIdBuildRouteImport.update({
+  id: '/build',
+  path: '/build',
+  getParentRoute: () => TripsTripIdRoute,
+} as any)
+const TripsTripIdBudgetRoute = TripsTripIdBudgetRouteImport.update({
+  id: '/budget',
+  path: '/budget',
+  getParentRoute: () => TripsTripIdRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
+  '/dashboard': typeof DashboardRoute
+  '/forgot': typeof ForgotRoute
+  '/login': typeof LoginRoute
+  '/profile': typeof ProfileRoute
+  '/signup': typeof SignupRoute
+  '/explore/activities': typeof ExploreActivitiesRoute
+  '/explore/cities': typeof ExploreCitiesRoute
+  '/share/$slug': typeof ShareSlugRoute
+  '/trips/$tripId': typeof TripsTripIdRouteWithChildren
+  '/trips/new': typeof TripsNewRoute
+  '/trips/': typeof TripsIndexRoute
+  '/trips/$tripId/budget': typeof TripsTripIdBudgetRoute
+  '/trips/$tripId/build': typeof TripsTripIdBuildRoute
+  '/trips/$tripId/notes': typeof TripsTripIdNotesRoute
+  '/trips/$tripId/packing': typeof TripsTripIdPackingRoute
+  '/trips/$tripId/share': typeof TripsTripIdShareRoute
+  '/trips/$tripId/': typeof TripsTripIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
+  '/dashboard': typeof DashboardRoute
+  '/forgot': typeof ForgotRoute
+  '/login': typeof LoginRoute
+  '/profile': typeof ProfileRoute
+  '/signup': typeof SignupRoute
+  '/explore/activities': typeof ExploreActivitiesRoute
+  '/explore/cities': typeof ExploreCitiesRoute
+  '/share/$slug': typeof ShareSlugRoute
+  '/trips/new': typeof TripsNewRoute
+  '/trips': typeof TripsIndexRoute
+  '/trips/$tripId/budget': typeof TripsTripIdBudgetRoute
+  '/trips/$tripId/build': typeof TripsTripIdBuildRoute
+  '/trips/$tripId/notes': typeof TripsTripIdNotesRoute
+  '/trips/$tripId/packing': typeof TripsTripIdPackingRoute
+  '/trips/$tripId/share': typeof TripsTripIdShareRoute
+  '/trips/$tripId': typeof TripsTripIdIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
+  '/dashboard': typeof DashboardRoute
+  '/forgot': typeof ForgotRoute
+  '/login': typeof LoginRoute
+  '/profile': typeof ProfileRoute
+  '/signup': typeof SignupRoute
+  '/explore/activities': typeof ExploreActivitiesRoute
+  '/explore/cities': typeof ExploreCitiesRoute
+  '/share/$slug': typeof ShareSlugRoute
+  '/trips/$tripId': typeof TripsTripIdRouteWithChildren
+  '/trips/new': typeof TripsNewRoute
+  '/trips/': typeof TripsIndexRoute
+  '/trips/$tripId/budget': typeof TripsTripIdBudgetRoute
+  '/trips/$tripId/build': typeof TripsTripIdBuildRoute
+  '/trips/$tripId/notes': typeof TripsTripIdNotesRoute
+  '/trips/$tripId/packing': typeof TripsTripIdPackingRoute
+  '/trips/$tripId/share': typeof TripsTripIdShareRoute
+  '/trips/$tripId/': typeof TripsTripIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/admin'
+    | '/dashboard'
+    | '/forgot'
+    | '/login'
+    | '/profile'
+    | '/signup'
+    | '/explore/activities'
+    | '/explore/cities'
+    | '/share/$slug'
+    | '/trips/$tripId'
+    | '/trips/new'
+    | '/trips/'
+    | '/trips/$tripId/budget'
+    | '/trips/$tripId/build'
+    | '/trips/$tripId/notes'
+    | '/trips/$tripId/packing'
+    | '/trips/$tripId/share'
+    | '/trips/$tripId/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/admin'
+    | '/dashboard'
+    | '/forgot'
+    | '/login'
+    | '/profile'
+    | '/signup'
+    | '/explore/activities'
+    | '/explore/cities'
+    | '/share/$slug'
+    | '/trips/new'
+    | '/trips'
+    | '/trips/$tripId/budget'
+    | '/trips/$tripId/build'
+    | '/trips/$tripId/notes'
+    | '/trips/$tripId/packing'
+    | '/trips/$tripId/share'
+    | '/trips/$tripId'
+  id:
+    | '__root__'
+    | '/'
+    | '/admin'
+    | '/dashboard'
+    | '/forgot'
+    | '/login'
+    | '/profile'
+    | '/signup'
+    | '/explore/activities'
+    | '/explore/cities'
+    | '/share/$slug'
+    | '/trips/$tripId'
+    | '/trips/new'
+    | '/trips/'
+    | '/trips/$tripId/budget'
+    | '/trips/$tripId/build'
+    | '/trips/$tripId/notes'
+    | '/trips/$tripId/packing'
+    | '/trips/$tripId/share'
+    | '/trips/$tripId/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRoute
+  DashboardRoute: typeof DashboardRoute
+  ForgotRoute: typeof ForgotRoute
+  LoginRoute: typeof LoginRoute
+  ProfileRoute: typeof ProfileRoute
+  SignupRoute: typeof SignupRoute
+  ExploreActivitiesRoute: typeof ExploreActivitiesRoute
+  ExploreCitiesRoute: typeof ExploreCitiesRoute
+  ShareSlugRoute: typeof ShareSlugRoute
+  TripsTripIdRoute: typeof TripsTripIdRouteWithChildren
+  TripsNewRoute: typeof TripsNewRoute
+  TripsIndexRoute: typeof TripsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/signup': {
+      id: '/signup'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof SignupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/forgot': {
+      id: '/forgot'
+      path: '/forgot'
+      fullPath: '/forgot'
+      preLoaderRoute: typeof ForgotRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,22 +320,130 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/trips/': {
+      id: '/trips/'
+      path: '/trips'
+      fullPath: '/trips/'
+      preLoaderRoute: typeof TripsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/trips/new': {
+      id: '/trips/new'
+      path: '/trips/new'
+      fullPath: '/trips/new'
+      preLoaderRoute: typeof TripsNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/trips/$tripId': {
+      id: '/trips/$tripId'
+      path: '/trips/$tripId'
+      fullPath: '/trips/$tripId'
+      preLoaderRoute: typeof TripsTripIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/share/$slug': {
+      id: '/share/$slug'
+      path: '/share/$slug'
+      fullPath: '/share/$slug'
+      preLoaderRoute: typeof ShareSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/explore/cities': {
+      id: '/explore/cities'
+      path: '/explore/cities'
+      fullPath: '/explore/cities'
+      preLoaderRoute: typeof ExploreCitiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/explore/activities': {
+      id: '/explore/activities'
+      path: '/explore/activities'
+      fullPath: '/explore/activities'
+      preLoaderRoute: typeof ExploreActivitiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/trips/$tripId/': {
+      id: '/trips/$tripId/'
+      path: '/'
+      fullPath: '/trips/$tripId/'
+      preLoaderRoute: typeof TripsTripIdIndexRouteImport
+      parentRoute: typeof TripsTripIdRoute
+    }
+    '/trips/$tripId/share': {
+      id: '/trips/$tripId/share'
+      path: '/share'
+      fullPath: '/trips/$tripId/share'
+      preLoaderRoute: typeof TripsTripIdShareRouteImport
+      parentRoute: typeof TripsTripIdRoute
+    }
+    '/trips/$tripId/packing': {
+      id: '/trips/$tripId/packing'
+      path: '/packing'
+      fullPath: '/trips/$tripId/packing'
+      preLoaderRoute: typeof TripsTripIdPackingRouteImport
+      parentRoute: typeof TripsTripIdRoute
+    }
+    '/trips/$tripId/notes': {
+      id: '/trips/$tripId/notes'
+      path: '/notes'
+      fullPath: '/trips/$tripId/notes'
+      preLoaderRoute: typeof TripsTripIdNotesRouteImport
+      parentRoute: typeof TripsTripIdRoute
+    }
+    '/trips/$tripId/build': {
+      id: '/trips/$tripId/build'
+      path: '/build'
+      fullPath: '/trips/$tripId/build'
+      preLoaderRoute: typeof TripsTripIdBuildRouteImport
+      parentRoute: typeof TripsTripIdRoute
+    }
+    '/trips/$tripId/budget': {
+      id: '/trips/$tripId/budget'
+      path: '/budget'
+      fullPath: '/trips/$tripId/budget'
+      preLoaderRoute: typeof TripsTripIdBudgetRouteImport
+      parentRoute: typeof TripsTripIdRoute
+    }
   }
 }
 
+interface TripsTripIdRouteChildren {
+  TripsTripIdBudgetRoute: typeof TripsTripIdBudgetRoute
+  TripsTripIdBuildRoute: typeof TripsTripIdBuildRoute
+  TripsTripIdNotesRoute: typeof TripsTripIdNotesRoute
+  TripsTripIdPackingRoute: typeof TripsTripIdPackingRoute
+  TripsTripIdShareRoute: typeof TripsTripIdShareRoute
+  TripsTripIdIndexRoute: typeof TripsTripIdIndexRoute
+}
+
+const TripsTripIdRouteChildren: TripsTripIdRouteChildren = {
+  TripsTripIdBudgetRoute: TripsTripIdBudgetRoute,
+  TripsTripIdBuildRoute: TripsTripIdBuildRoute,
+  TripsTripIdNotesRoute: TripsTripIdNotesRoute,
+  TripsTripIdPackingRoute: TripsTripIdPackingRoute,
+  TripsTripIdShareRoute: TripsTripIdShareRoute,
+  TripsTripIdIndexRoute: TripsTripIdIndexRoute,
+}
+
+const TripsTripIdRouteWithChildren = TripsTripIdRoute._addFileChildren(
+  TripsTripIdRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRoute,
+  DashboardRoute: DashboardRoute,
+  ForgotRoute: ForgotRoute,
+  LoginRoute: LoginRoute,
+  ProfileRoute: ProfileRoute,
+  SignupRoute: SignupRoute,
+  ExploreActivitiesRoute: ExploreActivitiesRoute,
+  ExploreCitiesRoute: ExploreCitiesRoute,
+  ShareSlugRoute: ShareSlugRoute,
+  TripsTripIdRoute: TripsTripIdRouteWithChildren,
+  TripsNewRoute: TripsNewRoute,
+  TripsIndexRoute: TripsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
