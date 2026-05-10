@@ -10,13 +10,18 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SignupRouteImport } from './routes/signup'
+import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as ForgotRouteImport } from './routes/forgot'
 import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as TripsIndexRouteImport } from './routes/trips.index'
 import { Route as TripsNewRouteImport } from './routes/trips.new'
 import { Route as TripsTripIdRouteImport } from './routes/trips.$tripId'
+import { Route as ShareSlugRouteImport } from './routes/share.$slug'
+import { Route as ExploreCitiesRouteImport } from './routes/explore.cities'
+import { Route as ExploreActivitiesRouteImport } from './routes/explore.activities'
 import { Route as TripsTripIdIndexRouteImport } from './routes/trips.$tripId.index'
 import { Route as TripsTripIdShareRouteImport } from './routes/trips.$tripId.share'
 import { Route as TripsTripIdPackingRouteImport } from './routes/trips.$tripId.packing'
@@ -27,6 +32,11 @@ import { Route as TripsTripIdBudgetRouteImport } from './routes/trips.$tripId.bu
 const SignupRoute = SignupRouteImport.update({
   id: '/signup',
   path: '/signup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -42,6 +52,11 @@ const ForgotRoute = ForgotRouteImport.update({
 const DashboardRoute = DashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -62,6 +77,21 @@ const TripsNewRoute = TripsNewRouteImport.update({
 const TripsTripIdRoute = TripsTripIdRouteImport.update({
   id: '/trips/$tripId',
   path: '/trips/$tripId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ShareSlugRoute = ShareSlugRouteImport.update({
+  id: '/share/$slug',
+  path: '/share/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExploreCitiesRoute = ExploreCitiesRouteImport.update({
+  id: '/explore/cities',
+  path: '/explore/cities',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExploreActivitiesRoute = ExploreActivitiesRouteImport.update({
+  id: '/explore/activities',
+  path: '/explore/activities',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TripsTripIdIndexRoute = TripsTripIdIndexRouteImport.update({
@@ -97,10 +127,15 @@ const TripsTripIdBudgetRoute = TripsTripIdBudgetRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/dashboard': typeof DashboardRoute
   '/forgot': typeof ForgotRoute
   '/login': typeof LoginRoute
+  '/profile': typeof ProfileRoute
   '/signup': typeof SignupRoute
+  '/explore/activities': typeof ExploreActivitiesRoute
+  '/explore/cities': typeof ExploreCitiesRoute
+  '/share/$slug': typeof ShareSlugRoute
   '/trips/$tripId': typeof TripsTripIdRouteWithChildren
   '/trips/new': typeof TripsNewRoute
   '/trips/': typeof TripsIndexRoute
@@ -113,10 +148,15 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/dashboard': typeof DashboardRoute
   '/forgot': typeof ForgotRoute
   '/login': typeof LoginRoute
+  '/profile': typeof ProfileRoute
   '/signup': typeof SignupRoute
+  '/explore/activities': typeof ExploreActivitiesRoute
+  '/explore/cities': typeof ExploreCitiesRoute
+  '/share/$slug': typeof ShareSlugRoute
   '/trips/new': typeof TripsNewRoute
   '/trips': typeof TripsIndexRoute
   '/trips/$tripId/budget': typeof TripsTripIdBudgetRoute
@@ -129,10 +169,15 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/dashboard': typeof DashboardRoute
   '/forgot': typeof ForgotRoute
   '/login': typeof LoginRoute
+  '/profile': typeof ProfileRoute
   '/signup': typeof SignupRoute
+  '/explore/activities': typeof ExploreActivitiesRoute
+  '/explore/cities': typeof ExploreCitiesRoute
+  '/share/$slug': typeof ShareSlugRoute
   '/trips/$tripId': typeof TripsTripIdRouteWithChildren
   '/trips/new': typeof TripsNewRoute
   '/trips/': typeof TripsIndexRoute
@@ -147,10 +192,15 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/admin'
     | '/dashboard'
     | '/forgot'
     | '/login'
+    | '/profile'
     | '/signup'
+    | '/explore/activities'
+    | '/explore/cities'
+    | '/share/$slug'
     | '/trips/$tripId'
     | '/trips/new'
     | '/trips/'
@@ -163,10 +213,15 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/admin'
     | '/dashboard'
     | '/forgot'
     | '/login'
+    | '/profile'
     | '/signup'
+    | '/explore/activities'
+    | '/explore/cities'
+    | '/share/$slug'
     | '/trips/new'
     | '/trips'
     | '/trips/$tripId/budget'
@@ -178,10 +233,15 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/admin'
     | '/dashboard'
     | '/forgot'
     | '/login'
+    | '/profile'
     | '/signup'
+    | '/explore/activities'
+    | '/explore/cities'
+    | '/share/$slug'
     | '/trips/$tripId'
     | '/trips/new'
     | '/trips/'
@@ -195,10 +255,15 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRoute
   DashboardRoute: typeof DashboardRoute
   ForgotRoute: typeof ForgotRoute
   LoginRoute: typeof LoginRoute
+  ProfileRoute: typeof ProfileRoute
   SignupRoute: typeof SignupRoute
+  ExploreActivitiesRoute: typeof ExploreActivitiesRoute
+  ExploreCitiesRoute: typeof ExploreCitiesRoute
+  ShareSlugRoute: typeof ShareSlugRoute
   TripsTripIdRoute: typeof TripsTripIdRouteWithChildren
   TripsNewRoute: typeof TripsNewRoute
   TripsIndexRoute: typeof TripsIndexRoute
@@ -211,6 +276,13 @@ declare module '@tanstack/react-router' {
       path: '/signup'
       fullPath: '/signup'
       preLoaderRoute: typeof SignupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -232,6 +304,13 @@ declare module '@tanstack/react-router' {
       path: '/dashboard'
       fullPath: '/dashboard'
       preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -260,6 +339,27 @@ declare module '@tanstack/react-router' {
       path: '/trips/$tripId'
       fullPath: '/trips/$tripId'
       preLoaderRoute: typeof TripsTripIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/share/$slug': {
+      id: '/share/$slug'
+      path: '/share/$slug'
+      fullPath: '/share/$slug'
+      preLoaderRoute: typeof ShareSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/explore/cities': {
+      id: '/explore/cities'
+      path: '/explore/cities'
+      fullPath: '/explore/cities'
+      preLoaderRoute: typeof ExploreCitiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/explore/activities': {
+      id: '/explore/activities'
+      path: '/explore/activities'
+      fullPath: '/explore/activities'
+      preLoaderRoute: typeof ExploreActivitiesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/trips/$tripId/': {
@@ -331,10 +431,15 @@ const TripsTripIdRouteWithChildren = TripsTripIdRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRoute,
   DashboardRoute: DashboardRoute,
   ForgotRoute: ForgotRoute,
   LoginRoute: LoginRoute,
+  ProfileRoute: ProfileRoute,
   SignupRoute: SignupRoute,
+  ExploreActivitiesRoute: ExploreActivitiesRoute,
+  ExploreCitiesRoute: ExploreCitiesRoute,
+  ShareSlugRoute: ShareSlugRoute,
   TripsTripIdRoute: TripsTripIdRouteWithChildren,
   TripsNewRoute: TripsNewRoute,
   TripsIndexRoute: TripsIndexRoute,
