@@ -198,3 +198,43 @@
   background-clip: text;
   color: transparent;
 }
+
+@keyframes ken-burns {
+  0% { transform: scale(1) translate(0, 0); }
+  50% { transform: scale(1.1) translate(-1%, -1%); }
+  100% { transform: scale(1) translate(0, 0); }
+}
+
+@keyframes crossfade-1 {
+  0%, 33.33% { opacity: 1; }
+  43.33%, 90% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes crossfade-2 {
+  0%, 33.33% { opacity: 0; }
+  43.33%, 66.66% { opacity: 1; }
+  76.66%, 100% { opacity: 0; }
+}
+
+@keyframes crossfade-3 {
+  0%, 66.66% { opacity: 0; }
+  76.66%, 90% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@utility animate-ken-burns {
+  animation: ken-burns 30s ease-in-out infinite;
+}
+
+@utility animate-crossfade-1 {
+  animation: crossfade-1 24s infinite;
+}
+
+@utility animate-crossfade-2 {
+  animation: crossfade-2 24s infinite;
+}
+
+@utility animate-crossfade-3 {
+  animation: crossfade-3 24s infinite;
+}

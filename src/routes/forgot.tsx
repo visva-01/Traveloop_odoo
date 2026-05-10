@@ -3,8 +3,10 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { isEmail, resetPassword } from "@/lib/store";
+import { PasswordInput } from "@/components/ui/password-input";
+import { resetPassword } from "@/lib/store";
 import { toast } from "sonner";
+import { motion } from "framer-motion";
 
 export const Route = createFileRoute("/forgot")({
   head: () => ({ meta: [{ title: "Reset password — Traveloop" }] }),
@@ -14,42 +16,60 @@ export const Route = createFileRoute("/forgot")({
 function ForgotPage() {
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
+  const [done, setDone] = useState(false);
+  const [busy, setBusy] = useState(false);
   const [err, setErr] = useState("");
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErr("");
-    if (!isEmail(email)) return setErr("Enter a valid email.");
-    if (pwd.length < 6) return setErr("Password must be at least 6 characters.");
+    if (!email || pwd.length < 6) return setErr("Check your details.");
+    setBusy(true);
     try {
       await resetPassword(email, pwd);
-      toast.success("Password updated. You can sign in now.");
+      setDone(true);
     } catch (e) {
       setErr((e as Error).message);
+    } finally {
+      setBusy(false);
     }
   };
 
   return (
     <div className="mx-auto max-w-md px-6 py-16">
-      <div className="rounded-2xl border bg-gradient-card p-8 shadow-elegant">
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="rounded-2xl border bg-gradient-card p-8 shadow-elegant"
+      >
         <h1 className="text-2xl font-bold">Reset password</h1>
-        <p className="text-sm text-muted-foreground mt-1">Demo mode: set a new password directly.</p>
-        <form onSubmit={submit} className="space-y-4 mt-6">
-          <div className="space-y-1.5">
-            <Label htmlFor="email">Email</Label>
-            <Input id="email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
+        <p className="text-sm text-muted-foreground mt-1">Update your security credentials.</p>
+        
+        {done ? (
+          <div className="mt-6 text-center">
+            <p className="text-sm">Your password has been updated.</p>
+            <Button asChild className="mt-4"><Link to="/login">Sign in now</Link></Button>
           </div>
-          <div className="space-y-1.5">
-            <Label htmlFor="pwd">New password</Label>
-            <Input id="pwd" type="password" required value={pwd} onChange={(e) => setPwd(e.target.value)} />
-          </div>
-          {err && <p className="text-sm text-destructive">{err}</p>}
-          <Button type="submit" className="w-full">Update password</Button>
-        </form>
-        <div className="mt-4 text-sm text-center">
-          <Link to="/login" className="font-medium">Back to sign in</Link>
-        </div>
-      </div>
+        ) : (
+          <form onSubmit={submit} className="space-y-4 mt-6">
+            <div className="space-y-1.5">
+              <Label htmlFor="email">Account email</Label>
+              <Input id="email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
+            </div>
+            <div className="space-y-1.5">
+              <Label htmlFor="pwd">New password</Label>
+              <PasswordInput id="pwd" required value={pwd} onChange={(e) => setPwd(e.target.value)} />
+            </div>
+            {err && <p className="text-sm text-destructive">{err}</p>}
+            <Button type="submit" disabled={busy} className="w-full">
+              {busy ? "Updating…" : "Update password"}
+            </Button>
+            <div className="text-center">
+              <Link to="/login" className="text-sm text-muted-foreground hover:text-foreground">Back to login</Link>
+            </div>
+          </form>
+        )}
+      </motion.div>
     </div>
   );
 }

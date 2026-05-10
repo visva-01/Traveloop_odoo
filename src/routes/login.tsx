@@ -3,9 +3,11 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { PasswordInput } from "@/components/ui/password-input";
 import { useAuth } from "@/lib/auth";
 import { isEmail } from "@/lib/store";
 import { toast } from "sonner";
+import { motion } from "framer-motion";
 
 export const Route = createFileRoute("/login")({
   head: () => ({ meta: [{ title: "Sign in — Traveloop" }] }),
@@ -39,7 +41,11 @@ function LoginPage() {
 
   return (
     <div className="mx-auto max-w-md px-6 py-16">
-      <div className="rounded-2xl border bg-gradient-card p-8 shadow-elegant">
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="rounded-2xl border bg-gradient-card p-8 shadow-elegant"
+      >
         <h1 className="text-2xl font-bold">Welcome back</h1>
         <p className="text-sm text-muted-foreground mt-1">Sign in to continue planning.</p>
         <form onSubmit={submit} className="space-y-4 mt-6">
@@ -49,7 +55,7 @@ function LoginPage() {
           </div>
           <div className="space-y-1.5">
             <Label htmlFor="password">Password</Label>
-            <Input id="password" type="password" autoComplete="current-password" required value={password} onChange={(e) => setPassword(e.target.value)} />
+            <PasswordInput id="password" autoComplete="current-password" required value={password} onChange={(e) => setPassword(e.target.value)} />
           </div>
           {err && <p className="text-sm text-destructive">{err}</p>}
           <Button type="submit" disabled={busy} className="w-full shadow-glow">
@@ -60,7 +66,7 @@ function LoginPage() {
           <Link to="/forgot" className="text-muted-foreground hover:text-foreground">Forgot password?</Link>
           <Link to="/signup" className="font-medium">Create account</Link>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }

@@ -12,7 +12,17 @@ export const Route = createFileRoute("/trips/")({
 });
 
 function MyTrips() {
-  const trips = useLive<Trip[]>(() => listTrips(), []);
+  const [trips, loading] = useLive<Trip[]>(() => listTrips(), []);
+
+  if (loading && trips.length === 0) {
+    return (
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 py-8 flex flex-col items-center justify-center min-h-[400px]">
+        <div className="h-8 w-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+        <p className="mt-4 text-sm text-muted-foreground font-medium animate-pulse">Loading your trips...</p>
+      </div>
+    );
+  }
+
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 py-8">
       <div className="flex items-center justify-between mb-6">

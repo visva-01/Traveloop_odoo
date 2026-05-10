@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { RequireAuth } from "@/components/require-auth";
 import { createTrip } from "@/lib/store";
+import { useCurrency } from "@/lib/use-store";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/trips/new")({
@@ -15,6 +16,7 @@ export const Route = createFileRoute("/trips/new")({
 
 function NewTrip() {
   const nav = useNavigate();
+  const currency = useCurrency();
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [startDate, setStart] = useState("");
@@ -73,7 +75,7 @@ function NewTrip() {
           </div>
         </div>
         <div className="space-y-1.5">
-          <Label htmlFor="budget">Budget (USD, optional)</Label>
+          <Label htmlFor="budget">Budget ({currency}, optional)</Label>
           <Input id="budget" type="number" min={0} value={budget} onChange={(e) => setBudget(e.target.value)} placeholder="3000" />
         </div>
         <div className="space-y-1.5">

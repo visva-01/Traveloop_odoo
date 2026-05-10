@@ -10,7 +10,7 @@ export const Route = createFileRoute("/trips/$tripId/budget")({
 
 function Budget() {
   const { tripId } = Route.useParams();
-  const trip = useLive<Trip | null>(() => getTrip(tripId), null);
+  const [trip] = useLive<Trip | null>(() => getTrip(tripId), null);
   if (!trip) return null;
   const b = computeBudget(trip);
 

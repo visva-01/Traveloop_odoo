@@ -16,7 +16,7 @@ export const Route = createFileRoute("/trips/$tripId/share")({
 
 function ShareTab() {
   const { tripId } = Route.useParams();
-  const trip = useLive<Trip | null>(() => getTrip(tripId), null);
+  const [trip] = useLive<Trip | null>(() => getTrip(tripId), null);
   const [origin, setOrigin] = useState(typeof window !== "undefined" ? window.location.origin : "");
   if (!trip) return null;
   const url = `${origin}/share/${trip.shareSlug}`;

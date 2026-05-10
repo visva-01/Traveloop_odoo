@@ -15,7 +15,7 @@ export const Route = createFileRoute("/trips/$tripId/notes")({
 
 function Notes() {
   const { tripId } = Route.useParams();
-  const trip = useLive<Trip | null>(() => getTrip(tripId), null);
+  const [trip] = useLive<Trip | null>(() => getTrip(tripId), null);
   const [text, setText] = useState("");
   const [stopId, setStopId] = useState<string>("trip");
   if (!trip) return null;

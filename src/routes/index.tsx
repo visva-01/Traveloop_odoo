@@ -1,6 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Map, Wallet, Share2, Sparkles } from "lucide-react";
-import hero from "@/assets/hero.jpg";
+import coastal from "@/assets/coastal.png";
+import mountain from "@/assets/mountain.png";
+import city from "@/assets/city.png";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/")({
@@ -18,7 +20,11 @@ function Landing() {
     <div>
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 -z-10">
-          <img src={hero} alt="Travelers on a coastal sunset trail" className="h-full w-full object-cover" width={1920} height={1080} />
+          <div className="absolute inset-0 animate-ken-burns">
+            <img src={coastal} alt="" className="absolute inset-0 h-full w-full object-cover animate-crossfade-1" />
+            <img src={mountain} alt="" className="absolute inset-0 h-full w-full object-cover animate-crossfade-2" />
+            <img src={city} alt="" className="absolute inset-0 h-full w-full object-cover animate-crossfade-3" />
+          </div>
           <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/60 to-background/30" />
         </div>
         <div className="mx-auto max-w-7xl px-6 py-24 sm:py-32 grid lg:grid-cols-2 gap-10 items-center">

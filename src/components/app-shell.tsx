@@ -52,8 +52,8 @@ export function AppShell({ children }: { children: ReactNode }) {
               <ThemeToggle />
               {user && (
                 <div className="hidden sm:flex items-center gap-2 px-2 py-1 rounded-full bg-muted">
-                  <div className="h-6 w-6 rounded-full bg-gradient-hero grid place-items-center text-[10px] font-bold text-primary-foreground">
-                    {user.name.slice(0, 1).toUpperCase()}
+                  <div className="h-6 w-6 rounded-full bg-gradient-hero grid place-items-center text-[10px] font-bold text-primary-foreground overflow-hidden">
+                    {user.avatar ? <img src={user.avatar} alt={user.name} className="h-full w-full object-cover" /> : user.name.slice(0, 1).toUpperCase()}
                   </div>
                   <span className="text-xs font-medium pr-1">{user.name}</span>
                 </div>

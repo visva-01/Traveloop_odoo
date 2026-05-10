@@ -21,13 +21,26 @@ function Profile() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [language, setLanguage] = useState("en");
+  const [currency, setCurrencyState] = useState("USD");
   const [avatar, setAvatar] = useState("");
   const [err, setErr] = useState("");
 
   useEffect(() => {
+    import("@/lib/store").then(({ getCurrency }) => {
+      setCurrencyState(getCurrency());
+    });
+  }, []);
+
+  useEffect(() => {
     if (user) {
-      setName(user.name); setEmail(user.email);
-      setLanguage(user.language ?? "en"); setAvatar(user.avatar ?? "");
+      setName(user.name); 
+      setEmail(user.email);
+      setLanguage(user.language ?? "en"); 
+      setAvatar(user.avatar ?? "");
+      if (user.currency) {
+        setCurrencyState(user.currency);
+        import("@/lib/store").then(({ setCurrency }) => setCurrency(user.currency!));
+      }
     }
   }, [user]);
 
@@ -43,7 +56,15 @@ function Profile() {
     setErr("");
     if (name.trim().length < 2) return setErr("Name too short.");
     if (!isEmail(email)) return setErr("Invalid email.");
-    await updateUser({ name, email, language, avatar });
+    
+    // Save to database
+    await updateUser({ name, email, language, avatar, currency });
+    
+    // Also save to local storage for immediate UI reflection and guest-mode compatibility
+    import("@/lib/store").then(({ setCurrency }) => {
+      setCurrency(currency);
+    });
+    
     toast.success("Profile saved");
   };
 
@@ -76,6 +97,19 @@ function Profile() {
                 <SelectItem value="fr">Français</SelectItem>
                 <SelectItem value="de">Deutsch</SelectItem>
                 <SelectItem value="ja">日本語</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <Label>Currency</Label>
+            <Select value={currency} onValueChange={setCurrencyState}>
+              <SelectTrigger><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="USD">USD ($)</SelectItem>
+                <SelectItem value="EUR">EUR (€)</SelectItem>
+                <SelectItem value="INR">INR (₹)</SelectItem>
+                <SelectItem value="GBP">GBP (£)</SelectItem>
+                <SelectItem value="JPY">JPY (¥)</SelectItem>
               </SelectContent>
             </Select>
           </div>

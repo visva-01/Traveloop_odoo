@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { Search, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -29,16 +29,50 @@ function ActivitiesSearch() {
   const [q, setQ] = useState("");
   const [cat, setCat] = useState<(typeof CATS)[number]>("all");
   const [cost, setCost] = useState<(typeof COSTS)[number]["v"]>("all");
+  const [results, setResults] = useState<ActivityCatalogItem[]>(ACTIVITIES);
+  const [searching, setSearching] = useState(false);
 
-  const results = useMemo(() => ACTIVITIES.filter((a) =>
-    (cat === "all" || a.category === cat) &&
-    (q === "" || a.name.toLowerCase().includes(q.toLowerCase()) || a.city.toLowerCase().includes(q.toLowerCase())) &&
-    (cost === "all" ||
-      (cost === "free" && a.cost === 0) ||
-      (cost === "low" && a.cost > 0 && a.cost < 30) ||
-      (cost === "mid" && a.cost >= 30 && a.cost <= 80) ||
-      (cost === "hi" && a.cost > 80)),
-  ), [q, cat, cost]);
+  useEffect(() => {
+    const local = ACTIVITIES.filter((a) =>
+      (cat === "all" || a.category === cat) &&
+      (q === "" || a.name.toLowerCase().includes(q.toLowerCase()) || a.city.toLowerCase().includes(q.toLowerCase()) || (q.toLowerCase() === "india" && ["delhi", "mumbai", "jaipur", "goa", "agra", "udaipur", "varanasi", "kochi", "bangalore", "rishikesh"].includes(a.city.toLowerCase()))) &&
+      (cost === "all" ||
+        (cost === "free" && a.cost === 0) ||
+        (cost === "low" && a.cost > 0 && a.cost < 30) ||
+        (cost === "mid" && a.cost >= 30 && a.cost <= 80) ||
+        (cost === "hi" && a.cost > 80))
+    );
+
+    if (q.length < 3) {
+      setResults(local);
+      return;
+    }
+
+    const timer = setTimeout(async () => {
+      setSearching(true);
+      try {
+        const query = encodeURIComponent(`${q} ${cat === "all" ? "attractions" : cat}`);
+        const res = await fetch(`https://nominatim.openstreetmap.org/search?q=${query}&format=json&limit=15`);
+        const data = await res.json();
+        const apiActs = data.map((d: any) => ({
+          city: (d.display_name.split(",").slice(-2).join(", ") || "").trim(),
+          name: d.name || d.display_name.split(",")[0],
+          category: cat === "all" ? "Sightseeing" : cat,
+          cost: 0,
+          durationHours: 2,
+          description: d.display_name,
+        }));
+        // Merge local curated results with dynamic API results
+        setResults([...local, ...apiActs]);
+      } catch (e) {
+        console.error(e);
+        setResults(local);
+      } finally {
+        setSearching(false);
+      }
+    }, 600);
+    return () => clearTimeout(timer);
+  }, [q, cat, cost]);
 
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 py-8 space-y-6">
@@ -88,7 +122,7 @@ function ActivityCard({ a }: { a: ActivityCatalogItem }) {
 }
 
 function AddActivityToStop({ a }: { a: ActivityCatalogItem }) {
-  const trips = useLive<Trip[]>(() => listTrips(), []);
+  const [trips] = useLive<Trip[]>(() => listTrips(), []);
   const [open, setOpen] = useState(false);
   const [stopKey, setStopKey] = useState<string>("");
 

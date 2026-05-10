@@ -18,7 +18,7 @@ export const Route = createFileRoute("/trips/$tripId/packing")({
 
 function Packing() {
   const { tripId } = Route.useParams();
-  const trip = useLive<Trip | null>(() => getTrip(tripId), null);
+  const [trip] = useLive<Trip | null>(() => getTrip(tripId), null);
   const [label, setLabel] = useState("");
   const [cat, setCat] = useState<PackItem["category"]>("Other");
   if (!trip) return null;

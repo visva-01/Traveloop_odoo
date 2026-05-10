@@ -13,7 +13,17 @@ export const Route = createFileRoute("/dashboard")({
 
 function Dashboard() {
   const { user } = useAuth();
-  const trips = useLive<Trip[]>(() => listTrips(), []);
+  const [trips, loading] = useLive<Trip[]>(() => listTrips(), []);
+
+  if (loading && trips.length === 0) {
+    return (
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 py-12 flex flex-col items-center justify-center space-y-4">
+        <div className="h-10 w-10 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+        <p className="text-muted-foreground animate-pulse font-medium">Getting your dashboard ready...</p>
+      </div>
+    );
+  }
+
   const upcoming = [...trips].sort((a, b) => +new Date(a.startDate) - +new Date(b.startDate)).slice(0, 3);
   const totalSpend = trips.reduce((n, t) => n + computeBudget(t).total, 0);
   const totalDays = trips.reduce((n, t) => n + daysBetween(t.startDate, t.endDate), 0);

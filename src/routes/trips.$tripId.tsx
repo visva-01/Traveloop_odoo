@@ -21,11 +21,25 @@ const tabs = [
 
 function TripLayout() {
   const { tripId } = Route.useParams();
-  const trip = useLive<Trip | null>(() => getTrip(tripId), null);
+  const [trip, loading] = useLive<Trip | null>(() => getTrip(tripId), null);
   const path = useRouterState({ select: (r) => r.location.pathname });
 
+  if (loading && !trip) {
+    return (
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 py-20 flex flex-col items-center justify-center space-y-4">
+        <div className="h-10 w-10 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+        <p className="text-muted-foreground animate-pulse font-medium">Loading trip details...</p>
+      </div>
+    );
+  }
+
   if (!trip) {
-    return <div className="mx-auto max-w-5xl px-6 py-12 text-sm text-muted-foreground">Trip not found.</div>;
+    return (
+      <div className="mx-auto max-w-5xl px-6 py-12 text-center">
+        <h2 className="text-xl font-bold">Trip not found</h2>
+        <p className="text-sm text-muted-foreground mt-2">The trip you are looking for doesn't exist.</p>
+      </div>
+    );
   }
 
   const base = `/trips/${trip.id}`;

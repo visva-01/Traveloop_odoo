@@ -11,7 +11,7 @@ export const Route = createFileRoute("/trips/$tripId/")({
 
 function Itinerary() {
   const { tripId } = Route.useParams();
-  const trip = useLive<Trip | null>(() => getTrip(tripId), null);
+  const [trip] = useLive<Trip | null>(() => getTrip(tripId), null);
   if (!trip) return null;
 
   if (trip.stops.length === 0) {

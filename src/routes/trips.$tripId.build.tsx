@@ -20,8 +20,23 @@ export const Route = createFileRoute("/trips/$tripId/build")({
 
 function Builder() {
   const { tripId } = Route.useParams();
-  const trip = useLive<Trip | null>(() => getTrip(tripId), null);
-  if (!trip) return null;
+  const [trip, loading] = useLive<Trip | null>(() => getTrip(tripId), null);
+
+  if (loading && !trip) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[300px] space-y-4">
+        <div className="h-8 w-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+        <p className="text-sm text-muted-foreground animate-pulse">Loading itinerary...</p>
+      </div>
+    );
+  }
+
+  if (!trip) return (
+    <div className="p-8 text-center border-2 border-dashed rounded-2xl">
+      <h2 className="text-xl font-bold">Trip not found</h2>
+      <p className="text-sm text-muted-foreground mt-2">The trip you are looking for doesn't exist or you don't have access.</p>
+    </div>
+  );
 
   const move = async (i: number, dir: -1 | 1) => {
     const ids = trip.stops.sort((a, b) => a.order - b.order).map((s) => s.id);

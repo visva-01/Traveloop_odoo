@@ -73,7 +73,7 @@ export default {
       const response = await handler.fetch(request, env, ctx);
       return await normalizeCatastrophicSsrResponse(response);
     } catch (error) {
-      console.error(error);
+      console.error("===== FATAL SSR ERROR =====", error);
       return brandedErrorResponse();
     }
   },

@@ -1,0 +1,89 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id              String   @id @default(uuid())
+  name            String
+  email           String   @unique
+  password        String   // password hash
+  avatar          String?
+  language        String?
+  currency        String?
+  isAdmin         Boolean  @default(false)
+  createdAt       Float    // timestamp
+
+  trips           Trip[]
+}
+
+model Trip {
+  id              String   @id @default(uuid())
+  ownerId         String
+  owner           User     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  name            String
+  description     String
+  cover           String?
+  startDate       String
+  endDate         String
+  budget          Float?
+  isPublic        Boolean  @default(false)
+  shareSlug       String   @unique
+  createdAt       Float
+
+  stops           Stop[]
+  notes           Note[]
+  packing         PackItem[]
+}
+
+model Stop {
+  id              String   @id @default(uuid())
+  tripId          String
+  trip            Trip     @relation(fields: [tripId], references: [id], onDelete: Cascade)
+  city            String
+  country         String
+  startDate       String
+  endDate         String
+  stayCost        Float    @default(0)
+  transportCost   Float    @default(0)
+  mealsPerDay     Float    @default(0)
+  order           Int      @default(0)
+
+  activities      Activity[]
+}
+
+model Activity {
+  id              String   @id @default(uuid())
+  stopId          String
+  stop            Stop     @relation(fields: [stopId], references: [id], onDelete: Cascade)
+  name            String
+  category        String
+  cost            Float    @default(0)
+  durationHours   Float    @default(0)
+  description     String?
+  time            String?
+}
+
+model Note {
+  id              String   @id @default(uuid())
+  tripId          String
+  trip            Trip     @relation(fields: [tripId], references: [id], onDelete: Cascade)
+  stopId          String?
+  text            String
+  createdAt       Float
+}
+
+model PackItem {
+  id              String   @id @default(uuid())
+  tripId          String
+  trip            Trip     @relation(fields: [tripId], references: [id], onDelete: Cascade)
+  label           String
+  category        String
+  packed          Boolean  @default(false)
+}

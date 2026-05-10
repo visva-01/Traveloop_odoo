@@ -17,7 +17,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const run = async () => {
-      setUser(await currentUser());
+      const u = await currentUser();
+      setUser(u);
+      if (u?.currency) {
+        // Sync database currency to local storage for consistent formatting
+        const { setCurrency } = await import("./store");
+        setCurrency(u.currency);
+      }
       setLoading(false);
     };
     run();
