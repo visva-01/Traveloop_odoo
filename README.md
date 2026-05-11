@@ -49,6 +49,128 @@ DATABASE_URL="file:./dev.db"
 - `prisma/schema.prisma` - database schema and Prisma client config
 - `wrangler.jsonc` - Cloudflare Worker deployment config
 - `vite.config.ts` - Vite config using `@lovable.dev/vite-tanstack-config`
+  Traveloop
+├── .lovable/
+│   └── project.json
+├── .tanstack/
+│   └── tmp/
+├── prisma/
+│   ├── dev.db
+│   └── schema.prisma
+├── src/
+│   ├── assets/
+│   │   ├── city.png
+│   │   ├── coastal.png
+│   │   ├── hero.png
+│   │   └── mountain.png
+│   ├── components/
+│   │   ├── ui/
+│   │   │   ├── accordion.tsx
+│   │   │   ├── alert-dialog.tsx
+│   │   │   ├── alert.tsx
+│   │   │   ├── aspect-ratio.tsx
+│   │   │   ├── avatar.tsx
+│   │   │   ├── badge.tsx
+│   │   │   ├── breadcrumb.tsx
+│   │   │   ├── button.tsx
+│   │   │   ├── calendar.tsx
+│   │   │   ├── card.tsx
+│   │   │   ├── carousel.tsx
+│   │   │   ├── chart.tsx
+│   │   │   ├── checkbox.tsx
+│   │   │   ├── collapsible.tsx
+│   │   │   ├── command.tsx
+│   │   │   ├── context-menu.tsx
+│   │   │   ├── dialog.tsx
+│   │   │   ├── drawer.tsx
+│   │   │   ├── dropdown-menu.tsx
+│   │   │   ├── form.tsx
+│   │   │   ├── hover-card.tsx
+│   │   │   ├── input-otp.tsx
+│   │   │   ├── input.tsx
+│   │   │   ├── label.tsx
+│   │   │   ├── menubar.tsx
+│   │   │   ├── navigation-menu.tsx
+│   │   │   ├── pagination.tsx
+│   │   │   ├── password-input.tsx
+│   │   │   ├── popover.tsx
+│   │   │   ├── progress.tsx
+│   │   │   ├── radio-group.tsx
+│   │   │   ├── resizable.tsx
+│   │   │   ├── scroll-area.tsx
+│   │   │   ├── select.tsx
+│   │   │   ├── separator.tsx
+│   │   │   ├── sheet.tsx
+│   │   │   ├── sidebar.tsx
+│   │   │   ├── skeleton.tsx
+│   │   │   ├── slider.tsx
+│   │   │   ├── sonner.tsx
+│   │   │   ├── switch.tsx
+│   │   │   ├── table.tsx
+│   │   │   ├── tabs.tsx
+│   │   │   ├── textarea.tsx
+│   │   │   ├── toggle-group.tsx
+│   │   │   ├── toggle.tsx
+│   │   │   └── tooltip.tsx
+│   │   ├── app-shell.tsx
+│   │   ├── app-sidebar.tsx
+│   │   ├── logo.tsx
+│   │   ├── require-auth.tsx
+│   │   ├── theme-toggle.tsx
+│   │   └── world-map.tsx
+│   ├── hooks/
+│   │   └── use-mobile.tsx
+│   ├── lib/
+│   │   ├── auth.tsx
+│   │   ├── city-data.ts
+│   │   ├── db.ts
+│   │   ├── error-capture.ts
+│   │   ├── error-page.ts
+│   │   ├── rpc.ts
+│   │   ├── store.ts
+│   │   ├── use-store.ts
+│   │   └── utils.ts
+│   ├── routes/
+│   │   ├── __root.tsx
+│   │   ├── admin.tsx
+│   │   ├── dashboard.tsx
+│   │   ├── explore.activities.tsx
+│   │   ├── explore.cities.tsx
+│   │   ├── forgot.tsx
+│   │   ├── index.tsx
+│   │   ├── login.tsx
+│   │   ├── profile.tsx
+│   │   ├── share.$slug.tsx
+│   │   ├── signup.tsx
+│   │   ├── trips.$tripId.budget.tsx
+│   │   ├── trips.$tripId.build.tsx
+│   │   ├── trips.$tripId.index.tsx
+│   │   ├── trips.$tripId.notes.tsx
+│   │   ├── trips.$tripId.packing.tsx
+│   │   ├── trips.$tripId.share.tsx
+│   │   ├── trips.$tripId.tsx
+│   │   ├── trips.index.tsx
+│   │   └── trips.new.tsx
+│   ├── server/
+│   ├── router.tsx
+│   ├── routeTree.gen.ts
+│   ├── server.ts
+│   ├── start.ts
+│   └── styles.css
+├── .env
+├── .gitignore
+├── .prettierignore
+├── .prettierrc
+├── bun.lock
+├── check.js
+├── components.json
+├── eslint.config.js
+├── package-lock.json
+├── package.json
+├── tsconfig.json
+├── vite.config.ts
+└── wrangler.jsonc
+
 
 ## ▶️ Setup
 
